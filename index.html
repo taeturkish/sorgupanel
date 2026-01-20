@@ -878,6 +878,96 @@
             color: var(--warning-color);
         }
         
+        /* VIP Çözümler Özel Tasarım */
+        .vip-tool-container {
+            background: linear-gradient(135deg, rgba(255, 155, 51, 0.1), rgba(255, 155, 51, 0.05));
+            border: 2px solid var(--vip-color);
+        }
+        
+        .platform-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .platform-item {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-item:hover {
+            border-color: var(--vip-color);
+            transform: translateY(-5px);
+        }
+        
+        .platform-item.selected {
+            border-color: var(--vip-color);
+            background-color: rgba(255, 155, 51, 0.1);
+        }
+        
+        .platform-icon {
+            font-size: 30px;
+            color: var(--vip-color);
+        }
+        
+        .platform-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .count-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .count-input {
+            width: 120px;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .count-input:focus {
+            outline: none;
+            border-color: var(--vip-color);
+        }
+        
+        .range-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--vip-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 155, 51, 0.5);
+        }
+        
         /* Responsive */
         @media (max-width: 1200px) {
             .sidebar {
@@ -976,6 +1066,52 @@
         
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-color);
+        }
+        
+        /* Pulsing animation for premium features */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 155, 51, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 155, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 155, 51, 0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Glow effect */
+        .glow {
+            position: relative;
+        }
+        
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--vip-color), var(--admin-color));
+            border-radius: inherit;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .glow:hover::after {
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -1123,8 +1259,8 @@
                         { id: "name_birth", name: "Ad Doğum Tarihi Sorgu", badge: "Free", icon: "fas fa-calendar-alt" },
                         { id: "surname_city", name: "Soyad İl İlçe Sorgu", badge: "Free", icon: "fas fa-map" },
                         { id: "birth_city", name: "Doğum Tarihi İl İlçe Sorgu", badge: "Free", icon: "fas fa-calendar-check" },
-                        { id: "passport", name: "Pasaport Sorgu", badge: "VIP", icon: "fas fa-passport" },
-                        { id: "foreign", name: "Yabancı Sorgu", badge: "VIP", icon: "fas fa-globe-americas" }
+                        { id: "passport", name: "Pasaport Sorgu", badge: "Free", icon: "fas fa-passport" },
+                        { id: "foreign", name: "Yabancı Sorgu", badge: "Free", icon: "fas fa-globe-americas" }
                     ]
                 },
                 {
@@ -1146,19 +1282,19 @@
                     items: [
                         { id: "tc_gsm", name: "TC - GSM Sorgu", badge: "Free", icon: "fas fa-address-card" },
                         { id: "gsm_tc", name: "GSM - TC Sorgu", badge: "Free", icon: "fas fa-id-card" },
-                        { id: "imei", name: "Telefon IMEI Sorgu", badge: "VIP", icon: "fas fa-mobile-alt" },
+                        { id: "imei", name: "Telefon IMEI Sorgu", badge: "Free", icon: "fas fa-mobile-alt" },
                         { id: "operator", name: "Operator Sorgu", badge: "Free", icon: "fas fa-sim-card" },
-                        { id: "bill", name: "Fatura Sorgu", badge: "VIP", icon: "fas fa-file-invoice-dollar" }
+                        { id: "bill", name: "Fatura Sorgu", badge: "Free", icon: "fas fa-file-invoice-dollar" }
                     ]
                 },
                 {
                     title: "İŞ YERİ ÇÖZÜMLERİ",
                     icon: "fas fa-briefcase",
                     items: [
-                        { id: "insurance", name: "Sigorta Sorgu", badge: "VIP", icon: "fas fa-shield-alt" },
+                        { id: "insurance", name: "Sigorta Sorgu", badge: "Free", icon: "fas fa-shield-alt" },
                         { id: "profession", name: "Meslek Sorgu", badge: "Free", icon: "fas fa-user-md" },
                         { id: "workplace", name: "İş Yeri Sorgu", badge: "Free", icon: "fas fa-building" },
-                        { id: "esnaf", name: "Esnaf Sorgu", badge: "VIP", icon: "fas fa-store" }
+                        { id: "esnaf", name: "Esnaf Sorgu", badge: "Free", icon: "fas fa-store" }
                     ]
                 },
                 {
@@ -1220,13 +1356,23 @@
                     ]
                 },
                 {
+                    title: "SUÇ ÇÖZÜMLERİ",
+                    icon: "fas fa-gavel",
+                    items: [
+                        { id: "criminal_record", name: "Sabıka Sorgu", badge: "Free", icon: "fas fa-user-secret" },
+                        { id: "record_query", name: "Sicil Sorgu", badge: "Free", icon: "fas fa-file-alt" },
+                        { id: "serial_no", name: "Seri No Sorgu", badge: "Free", icon: "fas fa-barcode" },
+                        { id: "family_number", name: "Aile No Sorgu", badge: "Free", icon: "fas fa-id-card-alt" }
+                    ]
+                },
+                {
                     title: "ARAÇLAR",
                     icon: "fas fa-tools",
                     items: [
                         { id: "sms_bomber", name: "SMS Bomber", badge: "Free", icon: "fas fa-sms" },
                         { id: "call_bomber", name: "Call Bomber", badge: "Free", icon: "fas fa-phone" },
-                        { id: "mail_bomber", name: "Mail Bomber", badge: "VIP", icon: "fas fa-envelope" },
-                        { id: "gmail_query", name: "Gmail Sorgu", badge: "VIP", icon: "fab fa-google" },
+                        { id: "mail_bomber", name: "Mail Bomber", badge: "Free", icon: "fas fa-envelope" },
+                        { id: "gmail_query", name: "Gmail Sorgu", badge: "Free", icon: "fab fa-google" },
                         { id: "ddos", name: "DDoS Saldırı", badge: "Free", icon: "fas fa-network-wired" },
                         { id: "site_copier", name: "Site Kopyalayıcı", badge: "Free", icon: "fas fa-copy" },
                         { id: "debt", name: "Borç Sorgu", badge: "Free", icon: "fas fa-money-bill-wave" },
@@ -1250,26 +1396,17 @@
                     ]
                 },
                 {
-                    title: "SUÇ ÇÖZÜMLERİ",
-                    icon: "fas fa-gavel",
-                    items: [
-                        { id: "criminal_record", name: "Sabıka Sorgu", badge: "VIP", icon: "fas fa-user-secret" },
-                        { id: "record_query", name: "Sicil Sorgu", badge: "VIP", icon: "fas fa-file-alt" },
-                        { id: "family_number", name: "Aile No Sorgu", badge: "Free", icon: "fas fa-id-card-alt" }
-                    ]
-                },
-                {
                     title: "SOSYAL MEDYA",
                     icon: "fas fa-share-alt",
                     items: [
                         { id: "discord", name: "Discord Sorgu", badge: "Free", icon: "fab fa-discord" },
-                        { id: "instagram", name: "İnstagram Sorgu", badge: "VIP", icon: "fab fa-instagram" },
-                        { id: "youtube", name: "Youtube Sorgu", badge: "VIP", icon: "fab fa-youtube" },
-                        { id: "whatsapp", name: "Whatsapp Sorgu", badge: "VIP", icon: "fab fa-whatsapp" },
-                        { id: "twitter", name: "Twitter Sorgu", badge: "VIP", icon: "fab fa-twitter" },
-                        { id: "tiktok", name: "Tiktok Sorgu", badge: "VIP", icon: "fab fa-tiktok" },
+                        { id: "instagram", name: "İnstagram Sorgu", badge: "Free", icon: "fab fa-instagram" },
+                        { id: "youtube", name: "Youtube Sorgu", badge: "Free", icon: "fab fa-youtube" },
+                        { id: "whatsapp", name: "Whatsapp Sorgu", badge: "Free", icon: "fab fa-whatsapp" },
+                        { id: "twitter", name: "Twitter Sorgu", badge: "Free", icon: "fab fa-twitter" },
+                        { id: "tiktok", name: "Tiktok Sorgu", badge: "Free", icon: "fab fa-tiktok" },
                         { id: "telegram", name: "Telegram Sorgu", badge: "Free", icon: "fab fa-telegram" },
-                        { id: "gallery", name: "Galeri Sızma", badge: "VIP", icon: "fas fa-images" }
+                        { id: "gallery", name: "Galeri Sızma", badge: "Free", icon: "fas fa-images" }
                     ]
                 },
                 {
@@ -1289,6 +1426,18 @@
                     ]
                 },
                 {
+                    title: "VIP ÇÖZÜMLER",
+                    icon: "fas fa-crown",
+                    class: "vip-category",
+                    items: [
+                        { id: "fake_report", name: "Fake Report", badge: "VIP", icon: "fas fa-flag" },
+                        { id: "copyright_removal", name: "Sahte Telif Video Kaldırtma", badge: "VIP", icon: "fas fa-copyright" },
+                        { id: "ban_appeal", name: "Ban Açma", badge: "VIP", icon: "fas fa-unlock" },
+                        { id: "discord_creator", name: "Discord Hesap Oluşturucu", badge: "VIP", icon: "fab fa-discord" },
+                        { id: "server_complaint", name: "Discord Sunucu Şikayet", badge: "VIP", icon: "fas fa-exclamation-triangle" }
+                    ]
+                },
+                {
                     title: "Admin Paneli",
                     icon: "fas fa-user-shield",
                     class: "admin-category",
@@ -1305,78 +1454,177 @@
                     inputs: [
                         { label: "Ad", type: "text", placeholder: "Hedef kişinin adını girin", icon: "fas fa-user", required: true },
                         { label: "Soyad", type: "text", placeholder: "Hedef kişinin soyadını girin", icon: "fas fa-user", required: true }
-                    ]
+                    ],
+                    outputFormat: "person"
                 },
                 tc: {
                     title: "TC Kimlik Sorgu",
                     icon: "fas fa-fingerprint",
                     description: "TC Kimlik Numarası ile kişinin tüm bilgilerine erişin.",
                     inputs: [
-                        { label: "TC Kimlik No", type: "text", placeholder: "11 haneli TC kimlik numarası girin", icon: "fas fa-id-card", maxLength: 11, required: true }
-                    ]
-                },
-                family: {
-                    title: "Aile Sorgu",
-                    icon: "fas fa-users",
-                    description: "Kişinin aile üyelerini ve yakın akrabalarını görüntüleyin.",
-                    inputs: [
-                        { label: "TC Kimlik No", type: "text", placeholder: "Aranacak kişinin TC kimlik numarası", icon: "fas fa-id-card", maxLength: 11, required: true }
-                    ]
-                },
-                mail_bomber: {
-                    title: "Mail Bomber",
-                    icon: "fas fa-envelope",
-                    description: "Hedef e-posta adresine toplu mail gönderimi.",
-                    inputs: [
-                        { label: "E-posta Adresi", type: "email", placeholder: "Hedef e-posta adresi", icon: "fas fa-at", required: true }
+                        { label: "TC Kimlik No", type: "text", placeholder: "11 haneli TC kimlik numarası girin", icon: "fas fa-id-card", maxLength: 11, required: true, validation: "tc" }
                     ],
-                    requiredRole: "vip"
+                    outputFormat: "person"
                 },
-                gmail_query: {
-                    title: "Gmail Sorgu",
-                    icon: "fab fa-google",
-                    description: "Gmail adresinden kişisel bilgilere erişim.",
+                gsm_tc: {
+                    title: "GSM - TC Sorgu",
+                    icon: "fas fa-phone",
+                    description: "Telefon numarasından TC kimlik bilgilerine erişin.",
                     inputs: [
-                        { label: "Gmail Adresi", type: "email", placeholder: "example@gmail.com", icon: "fas fa-at", required: true }
+                        { label: "Telefon Numarası", type: "tel", placeholder: "05xx xxx xx xx formatında girin", icon: "fas fa-phone", required: true, validation: "phone" }
                     ],
-                    requiredRole: "vip"
-                },
-                esnaf: {
-                    title: "Esnaf Sorgu",
-                    icon: "fas fa-store",
-                    description: "Esnaf bilgileri ve iş yeri detayları.",
-                    inputs: [
-                        { label: "Esnaf Adı", type: "text", placeholder: "Esnaf adı veya vergi no", icon: "fas fa-user-tie", required: true }
-                    ],
-                    requiredRole: "vip"
+                    outputFormat: "phone"
                 },
                 passport: {
                     title: "Pasaport Sorgu",
                     icon: "fas fa-passport",
                     description: "Pasaport numarası ile kişisel bilgilere erişim.",
                     inputs: [
-                        { label: "Pasaport No", type: "text", placeholder: "Pasaport numarası girin", icon: "fas fa-id-card", required: true }
+                        { label: "Pasaport No", type: "text", placeholder: "Pasaport numarası girin", icon: "fas fa-passport", required: true }
                     ],
+                    outputFormat: "passport"
+                },
+                address: {
+                    title: "Adres Sorgu",
+                    icon: "fas fa-map-pin",
+                    description: "TC No veya adres ile tam adres bilgilerini sorgulayın.",
+                    inputs: [
+                        { label: "TC No veya Adres", type: "text", placeholder: "TC kimlik no veya adres girin", icon: "fas fa-search", required: true }
+                    ],
+                    outputFormat: "address"
+                },
+                family: {
+                    title: "Aile Sorgu",
+                    icon: "fas fa-users",
+                    description: "Kişinin aile üyelerini ve yakın akrabalarını görüntüleyin.",
+                    inputs: [
+                        { label: "TC Kimlik No", type: "text", placeholder: "Aranacak kişinin TC kimlik numarası", icon: "fas fa-id-card", maxLength: 11, required: true, validation: "tc" }
+                    ],
+                    outputFormat: "family"
+                },
+                serial_no: {
+                    title: "Seri No Sorgu",
+                    icon: "fas fa-barcode",
+                    description: "Seri numarası ile cihaz bilgilerini sorgulayın.",
+                    inputs: [
+                        { label: "Seri No", type: "text", placeholder: "Cihaz seri numarasını girin", icon: "fas fa-barcode", required: true }
+                    ],
+                    outputFormat: "serial"
+                },
+                fake_report: {
+                    title: "Fake Report",
+                    icon: "fas fa-flag",
+                    description: "Seçilen platformda hedef hesaba fake report gönderin.",
+                    inputs: [],
+                    outputFormat: "vip_tool",
                     requiredRole: "vip"
                 },
-                foreign: {
-                    title: "Yabancı Sorgu",
-                    icon: "fas fa-globe-americas",
-                    description: "Yabancı uyruklu kişilerin bilgileri.",
-                    inputs: [
-                        { label: "Pasaport No", type: "text", placeholder: "Yabancı pasaport no", icon: "fas fa-passport", required: true }
-                    ],
+                copyright_removal: {
+                    title: "Sahte Telif Video Kaldırtma",
+                    icon: "fas fa-copyright",
+                    description: "Seçilen platformda video kaldırtma işlemi başlatın.",
+                    inputs: [],
+                    outputFormat: "vip_tool",
                     requiredRole: "vip"
+                },
+                ban_appeal: {
+                    title: "Ban Açma",
+                    icon: "fas fa-unlock",
+                    description: "Seçilen platformda ban açma işlemi başlatın.",
+                    inputs: [],
+                    outputFormat: "vip_tool",
+                    requiredRole: "vip"
+                },
+                discord_creator: {
+                    title: "Discord Hesap Oluşturucu",
+                    icon: "fab fa-discord",
+                    description: "Discord hesabı oluşturun, gmail ve telefon doğrulaması sistem tarafından yapılır.",
+                    inputs: [
+                        { label: "Kullanıcı Adı", type: "text", placeholder: "Discord kullanıcı adı", icon: "fas fa-user", required: true },
+                        { label: "Şifre", type: "password", placeholder: "Discord şifresi", icon: "fas fa-lock", required: true }
+                    ],
+                    outputFormat: "discord_creator",
+                    requiredRole: "vip"
+                },
+                server_complaint: {
+                    title: "Discord Sunucu Şikayet",
+                    icon: "fas fa-exclamation-triangle",
+                    description: "Discord sunucusuna toplu şikayet gönderin.",
+                    inputs: [],
+                    outputFormat: "vip_tool",
+                    requiredRole: "vip"
+                },
+                insurance: {
+                    title: "Sigorta Sorgu",
+                    icon: "fas fa-shield-alt",
+                    description: "Sigorta kayıtlarını sorgulayın.",
+                    inputs: [
+                        { label: "TC No", type: "text", placeholder: "TC kimlik numarası girin", icon: "fas fa-id-card", maxLength: 11, required: true, validation: "tc" }
+                    ],
+                    outputFormat: "insurance"
+                },
+                esnaf: {
+                    title: "Esnaf Sorgu",
+                    icon: "fas fa-store",
+                    description: "Esnaf bilgileri ve iş yeri detayları.",
+                    inputs: [
+                        { label: "Esnaf Adı / Vergi No", type: "text", placeholder: "Esnaf adı veya vergi no girin", icon: "fas fa-user-tie", required: true }
+                    ],
+                    outputFormat: "esnaf"
+                },
+                criminal_record: {
+                    title: "Sabıka Sorgu",
+                    icon: "fas fa-user-secret",
+                    description: "Sabıka kayıtlarını sorgulayın.",
+                    inputs: [
+                        { label: "TC No", type: "text", placeholder: "TC kimlik numarası girin", icon: "fas fa-id-card", maxLength: 11, required: true, validation: "tc" }
+                    ],
+                    outputFormat: "criminal"
+                },
+                record_query: {
+                    title: "Sicil Sorgu",
+                    icon: "fas fa-file-alt",
+                    description: "Sicil kayıtlarını sorgulayın.",
+                    inputs: [
+                        { label: "TC No", type: "text", placeholder: "TC kimlik numarası girin", icon: "fas fa-id-card", maxLength: 11, required: true, validation: "tc" }
+                    ],
+                    outputFormat: "record"
                 }
             },
-            // Sadece adminin oluşturduğu key'ler
+            // VIP Araçları için platformlar
+            vipPlatforms: {
+                fake_report: [
+                    { id: "twitter", name: "Twitter", icon: "fab fa-twitter", color: "#1DA1F2" },
+                    { id: "roblox", name: "Roblox", icon: "fas fa-gamepad", color: "#FF0000" },
+                    { id: "youtube", name: "YouTube", icon: "fab fa-youtube", color: "#FF0000" },
+                    { id: "instagram", name: "Instagram", icon: "fab fa-instagram", color: "#E4405F" },
+                    { id: "facebook", name: "Facebook", icon: "fab fa-facebook", color: "#1877F2" },
+                    { id: "tiktok", name: "TikTok", icon: "fab fa-tiktok", color: "#000000" },
+                    { id: "discord", name: "Discord", icon: "fab fa-discord", color: "#5865F2" }
+                ],
+                copyright_removal: [
+                    { id: "youtube", name: "YouTube", icon: "fab fa-youtube", color: "#FF0000" },
+                    { id: "instagram", name: "Instagram", icon: "fab fa-instagram", color: "#E4405F" },
+                    { id: "facebook", name: "Facebook", icon: "fab fa-facebook", color: "#1877F2" },
+                    { id: "tiktok", name: "TikTok", icon: "fab fa-tiktok", color: "#000000" }
+                ],
+                ban_appeal: [
+                    { id: "twitter", name: "Twitter", icon: "fab fa-twitter", color: "#1DA1F2" },
+                    { id: "youtube", name: "YouTube", icon: "fab fa-youtube", color: "#FF0000" },
+                    { id: "instagram", name: "Instagram", icon: "fab fa-instagram", color: "#E4405F" },
+                    { id: "facebook", name: "Facebook", icon: "fab fa-facebook", color: "#1877F2" },
+                    { id: "tiktok", name: "TikTok", icon: "fab fa-tiktok", color: "#000000" },
+                    { id: "discord", name: "Discord", icon: "fab fa-discord", color: "#5865F2" }
+                ],
+                server_complaint: [
+                    { id: "discord", name: "Discord", icon: "fab fa-discord", color: "#5865F2" }
+                ]
+            },
             generatedKeys: [],
-            // Aktif kullanıcılar
             activeUsers: [],
-            // Geçerli key'ler (localStorage'tan yüklenecek)
             validKeys: [],
-            // Veritabanı (TC'ye göre verileri tutmak için)
             personDatabase: {},
+            personIdCounter: 1000,
             notifications: [],
             stats: {
                 totalUsers: 0,
@@ -1416,31 +1664,23 @@
 
         // Initialize Application
         function init() {
-            // Load data from localStorage
             loadFromLocalStorage();
-            
-            // Initialize database
             initializeDatabase();
             
-            // Login event
             loginBtn.addEventListener('click', handleLogin);
             licenseKeyInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') handleLogin();
             });
             
-            // Query button event
             queryBtn.addEventListener('click', executeQuery);
             clearBtn.addEventListener('click', clearForm);
             
-            // Admin panel events
             generateKeyBtn.addEventListener('click', generateKey);
             deleteAllKeysBtn.addEventListener('click', deleteAllKeys);
             listUsersBtn.addEventListener('click', listUsers);
             
-            // Initialize stats
             updateStats();
             
-            // Load first query by default
             if (state.categories.length > 0 && state.categories[0].items.length > 0) {
                 loadQuery(state.categories[0].items[0].id);
             }
@@ -1452,6 +1692,7 @@
             const savedValidKeys = localStorage.getItem('kratos955_validKeys');
             const savedUsers = localStorage.getItem('kratos955_activeUsers');
             const savedDatabase = localStorage.getItem('kratos955_personDatabase');
+            const savedCounter = localStorage.getItem('kratos955_personIdCounter');
             
             if (savedKeys) {
                 state.generatedKeys = JSON.parse(savedKeys);
@@ -1467,7 +1708,8 @@
                     expires: null,
                     owner: "Owner",
                     created: new Date().toISOString(),
-                    days: 9999
+                    days: 9999,
+                    createdBy: "system"
                 }];
                 saveToLocalStorage();
             }
@@ -1479,6 +1721,10 @@
             if (savedDatabase) {
                 state.personDatabase = JSON.parse(savedDatabase);
             }
+            
+            if (savedCounter) {
+                state.personIdCounter = parseInt(savedCounter);
+            }
         }
 
         // Save to localStorage
@@ -1487,6 +1733,7 @@
             localStorage.setItem('kratos955_validKeys', JSON.stringify(state.validKeys));
             localStorage.setItem('kratos955_activeUsers', JSON.stringify(state.activeUsers));
             localStorage.setItem('kratos955_personDatabase', JSON.stringify(state.personDatabase));
+            localStorage.setItem('kratos955_personIdCounter', state.personIdCounter.toString());
         }
 
         // Initialize person database
@@ -1505,7 +1752,7 @@
             }
         }
 
-        // Generate random person - TAMAMEN RASTGELE
+        // Generate random person - Tutarlı veritabanı
         function generateRandomPerson() {
             const turkishFirstNames = {
                 male: ["Ahmet", "Mehmet", "Ali", "Mustafa", "Hüseyin", "Hasan", "İbrahim", "İsmail", "Osman", "Yusuf", "Murat", "Ömer", "Ramazan", "Süleyman", "Fatih", "Emre", "Burak", "Can", "Cem", "Deniz", "Eren", "Kaan", "Onur", "Serkan", "Tolga", "Umut", "Volkan", "Yasin", "Zafer", "Arda", "Berk", "Cihan", "Doğan", "Ege", "Furkan", "Gökhan", "Hakan", "Kadir", "Levent", "Mert", "Nuri", "Orhan", "Polat", "Recep", "Selim", "Tarık", "Uğur", "Veli", "Yunus", "Zeki"],
@@ -1530,12 +1777,8 @@
             const cityInfo = cities[Math.floor(Math.random() * cities.length)];
             const district = cityInfo.districts[Math.floor(Math.random() * cityInfo.districts.length)];
             
-            // Generate TC (11 haneli, ilk hane 0 olamaz)
-            let tc = '';
-            tc += Math.floor(Math.random() * 9) + 1; // İlk hane 1-9
-            for (let i = 0; i < 10; i++) {
-                tc += Math.floor(Math.random() * 10);
-            }
+            // Generate unique TC
+            let tc = generateUniqueTC();
             
             // Generate birth date (18-70 yaş)
             const age = Math.floor(Math.random() * 53) + 18;
@@ -1545,10 +1788,8 @@
             const birthDay = Math.floor(Math.random() * 28) + 1;
             const birthDate = `${birthDay.toString().padStart(2, '0')}/${birthMonth.toString().padStart(2, '0')}/${birthYear}`;
             
-            // Generate phone
-            const operators = ['3', '4', '5'];
-            const operator = operators[Math.floor(Math.random() * operators.length)];
-            const phone = `05${operator}${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`;
+            // Generate unique phone
+            const phone = generateUniquePhone();
             
             // Generate parents
             const motherName = turkishFirstNames.female[Math.floor(Math.random() * turkishFirstNames.female.length)];
@@ -1560,7 +1801,30 @@
             // Blood types
             const bloodTypes = ['A Rh+', 'A Rh-', 'B Rh+', 'B Rh-', 'AB Rh+', 'AB Rh-', '0 Rh+', '0 Rh-'];
             
+            // Address
+            const streets = ['Atatürk', 'Cumhuriyet', 'İstiklal', 'Fatih', 'Barbaros', 'Gazi', 'Zafer', 'Şehitler', 'Vatan', 'Milli Egemenlik'];
+            const address = `${streets[Math.floor(Math.random() * streets.length)]} Cad. No:${Math.floor(Math.random() * 200) + 1} ${district}/${cityInfo.name}`;
+            
+            // Email
+            const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}@gmail.com`;
+            
+            // Serial numbers (for various devices)
+            const serialNumbers = {
+                phone: `SN${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
+                passport: `P${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
+                id: `ID${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`
+            };
+            
+            // Insurance info
+            const insuranceCompanies = ['SGK', 'Axa Sigorta', 'Allianz', 'Anadolu Sigorta', 'Eureko Sigorta'];
+            
+            // Esnaf info
+            const esnafTypes = ['Bakkal', 'Kasap', 'Manav', 'Fırın', 'Kafe', 'Restoran', 'Berber', 'Kuyumcu', 'Elektrikçi', 'Mobilyacı'];
+            
+            state.personIdCounter++;
+            
             return {
+                id: state.personIdCounter,
                 tc: tc,
                 firstName: firstName,
                 lastName: lastName,
@@ -1575,12 +1839,67 @@
                 gender: gender === 'male' ? 'Erkek' : 'Kadın',
                 nationality: 'Türkiye',
                 phone: phone,
+                email: email,
+                address: address,
                 maritalStatus: Math.random() > 0.5 ? 'Evli' : 'Bekar',
                 childrenCount: Math.floor(Math.random() * 5),
                 profession: professions[Math.floor(Math.random() * professions.length)],
                 bloodType: bloodTypes[Math.floor(Math.random() * bloodTypes.length)],
-                createdAt: new Date().toISOString()
+                serialNumbers: serialNumbers,
+                insurance: {
+                    company: insuranceCompanies[Math.floor(Math.random() * insuranceCompanies.length)],
+                    policyNo: `POL${Math.floor(Math.random() * 100000)}`,
+                    startDate: `${Math.floor(Math.random() * 28) + 1}/${Math.floor(Math.random() * 12) + 1}/2022`,
+                    endDate: `${Math.floor(Math.random() * 28) + 1}/${Math.floor(Math.random() * 12) + 1}/2024`
+                },
+                esnafInfo: {
+                    isEsnaf: Math.random() > 0.7,
+                    type: esnafTypes[Math.floor(Math.random() * esnafTypes.length)],
+                    vergiNo: `V${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
+                    workplaceName: `${firstName} ${lastName} ${esnafTypes[Math.floor(Math.random() * esnafTypes.length)]}`
+                },
+                criminalRecord: {
+                    hasRecord: Math.random() > 0.8,
+                    records: Math.random() > 0.8 ? ['Hırsızlık', 'Dolandırıcılık', 'Yaralama'][Math.floor(Math.random() * 3)] : 'Temiz',
+                    lastRecord: Math.random() > 0.8 ? `${Math.floor(Math.random() * 28) + 1}/${Math.floor(Math.random() * 12) + 1}/2020` : null
+                },
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
             };
+        }
+
+        // Generate unique TC (11 haneli, ilk hane 0 olamaz)
+        function generateUniqueTC() {
+            let tc;
+            let attempts = 0;
+            
+            do {
+                tc = '';
+                tc += Math.floor(Math.random() * 9) + 1; // İlk hane 1-9
+                for (let i = 0; i < 10; i++) {
+                    tc += Math.floor(Math.random() * 10);
+                }
+                attempts++;
+                if (attempts > 100) break; // Güvenlik için limit
+            } while (state.personDatabase[tc]);
+            
+            return tc;
+        }
+
+        // Generate unique phone number
+        function generateUniquePhone() {
+            let phone;
+            let attempts = 0;
+            
+            do {
+                const operators = ['3', '4', '5'];
+                const operator = operators[Math.floor(Math.random() * operators.length)];
+                phone = `05${operator}${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`;
+                attempts++;
+                if (attempts > 100) break;
+            } while (Object.values(state.personDatabase).some(person => person.phone === phone));
+            
+            return phone;
         }
 
         // Handle Login
@@ -1694,15 +2013,15 @@
             const adminKeys = state.validKeys.filter(k => k.type === 'admin').length;
             
             statsContainer.innerHTML = `
-                <div class="stat-card">
+                <div class="stat-card glow">
                     <div class="stat-value">${totalKeys}</div>
                     <div class="stat-label"><i class="fas fa-users"></i> ÜYE</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glow">
                     <div class="stat-value">${vipKeys}</div>
                     <div class="stat-label"><i class="fas fa-crown"></i> VIP</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glow">
                     <div class="stat-value">${adminKeys}</div>
                     <div class="stat-label"><i class="fas fa-user-shield"></i> ADMIN</div>
                 </div>
@@ -1759,7 +2078,7 @@
         function populateSidebar() {
             sidebar.innerHTML = `
                 <div class="user-info">
-                    <div class="user-avatar">${state.currentUser.charAt(0)}</div>
+                    <div class="user-avatar float">${state.currentUser.charAt(0)}</div>
                     <div class="user-details">
                         <h3>${state.currentUser}</h3>
                         <span>${state.currentRole === 'admin' ? 'KURUCU' : state.currentRole === 'vip' ? 'VIP ÜYE' : 'ÜCRETSİZ ÜYE'}</span>
@@ -1767,7 +2086,7 @@
                     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Çıkış</button>
                 </div>
                 
-                <div class="sidebar-item active" data-query-id="dashboard" style="margin-bottom: 20px; border-left: 3px solid var(--primary-color);">
+                <div class="sidebar-item active pulse" data-query-id="dashboard" style="margin-bottom: 20px; border-left: 3px solid var(--primary-color);">
                     <span><i class="fas fa-tachometer-alt"></i> Kontrol Paneli</span>
                     <span class="item-badge" style="background-color: var(--primary-color);">Ana</span>
                 </div>
@@ -1795,13 +2114,18 @@
                 categoryItems.style.maxHeight = '0';
                 
                 category.items.forEach(item => {
+                    // Skip VIP tools for non-VIP users
+                    if (item.badge === 'VIP' && state.currentRole !== 'vip' && state.currentRole !== 'admin') {
+                        return;
+                    }
+                    
                     const itemElement = document.createElement('div');
                     itemElement.className = 'sidebar-item';
                     itemElement.dataset.queryId = item.id;
                     
                     itemElement.innerHTML = `
                         <span><i class="${item.icon}"></i> ${item.name}</span>
-                        <span class="item-badge ${item.badge === 'VIP' ? 'vip-badge' : item.badge === 'Admin' ? 'admin-badge' : ''}">${item.badge}</span>
+                        <span class="item-badge ${item.badge === 'VIP' ? 'vip-badge pulse' : item.badge === 'Admin' ? 'admin-badge' : ''}">${item.badge}</span>
                     `;
                     
                     itemElement.addEventListener('click', () => {
@@ -1819,6 +2143,11 @@
                     
                     categoryItems.appendChild(itemElement);
                 });
+                
+                // Skip empty categories
+                if (categoryItems.children.length === 0) {
+                    return;
+                }
                 
                 // Toggle category items
                 categoryTitle.addEventListener('click', () => {
@@ -1899,10 +2228,38 @@
                     return;
                 }
                 
+                // Default input based on query type
+                let inputConfig = {
+                    placeholder: "Sorgu değerini girin",
+                    icon: "fas fa-search",
+                    type: "text"
+                };
+                
+                if (queryId.includes('gsm') || queryId.includes('phone')) {
+                    inputConfig = {
+                        placeholder: "05xx xxx xx xx formatında girin",
+                        icon: "fas fa-phone",
+                        type: "tel"
+                    };
+                } else if (queryId.includes('tc')) {
+                    inputConfig = {
+                        placeholder: "11 haneli TC kimlik numarası girin",
+                        icon: "fas fa-id-card",
+                        type: "text",
+                        maxLength: 11
+                    };
+                } else if (queryId.includes('address')) {
+                    inputConfig = {
+                        placeholder: "TC No veya adres girin",
+                        icon: "fas fa-map-marker-alt",
+                        type: "text"
+                    };
+                }
+                
                 queryForm.innerHTML = `
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-search"></i> Sorgu Değeri</label>
-                        <input type="text" class="form-input" placeholder="Sorgu değerini girin" required>
+                        <label class="form-label"><i class="${inputConfig.icon}"></i> Sorgu Değeri</label>
+                        <input type="${inputConfig.type}" class="form-input" placeholder="${inputConfig.placeholder}" ${inputConfig.maxLength ? `maxlength="${inputConfig.maxLength}"` : ''} required>
                     </div>
                 `;
                 queryBtn.disabled = false;
@@ -1918,50 +2275,172 @@
             // Update titles
             queryTitle.innerHTML = `<i class="${template.icon}"></i> ${template.title}`;
             
+            // Check if it's a VIP tool
+            if (template.outputFormat === 'vip_tool') {
+                loadVipTool(queryId);
+                return;
+            }
+            
             // Build form
             queryForm.innerHTML = '';
-            template.inputs.forEach(input => {
-                const formGroup = document.createElement('div');
-                formGroup.className = 'form-group';
-                
-                const label = document.createElement('label');
-                label.className = 'form-label';
-                label.innerHTML = `<i class="${input.icon}"></i> ${input.label}`;
-                
-                const inputElement = document.createElement('input');
-                inputElement.type = input.type;
-                inputElement.className = 'form-input';
-                inputElement.placeholder = input.placeholder || '';
-                inputElement.required = input.required || false;
-                
-                if (input.maxLength) {
-                    inputElement.maxLength = input.maxLength;
-                }
-                
-                formGroup.appendChild(label);
-                formGroup.appendChild(inputElement);
-                queryForm.appendChild(formGroup);
-            });
+            if (template.inputs && template.inputs.length > 0) {
+                template.inputs.forEach(input => {
+                    const formGroup = document.createElement('div');
+                    formGroup.className = 'form-group';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'form-label';
+                    label.innerHTML = `<i class="${input.icon}"></i> ${input.label}`;
+                    
+                    const inputElement = document.createElement('input');
+                    inputElement.type = input.type;
+                    inputElement.className = 'form-input';
+                    inputElement.placeholder = input.placeholder || '';
+                    inputElement.required = input.required || false;
+                    
+                    if (input.maxLength) {
+                        inputElement.maxLength = input.maxLength;
+                    }
+                    
+                    if (input.validation) {
+                        inputElement.dataset.validation = input.validation;
+                    }
+                    
+                    formGroup.appendChild(label);
+                    formGroup.appendChild(inputElement);
+                    queryForm.appendChild(formGroup);
+                });
+            } else {
+                // Default input if no inputs defined
+                queryForm.innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-search"></i> Sorgu Değeri</label>
+                        <input type="text" class="form-input" placeholder="Sorgu değerini girin" required>
+                    </div>
+                `;
+            }
             
             queryBtn.disabled = false;
+        }
+
+        // Load VIP Tool
+        function loadVipTool(toolId) {
+            const template = state.queryTemplates[toolId];
+            const platforms = state.vipPlatforms[toolId] || [];
+            
+            queryTitle.innerHTML = `<i class="${template.icon}"></i> ${template.title}`;
+            queryTitle.className = 'query-title pulse';
+            
+            // Create platform selector
+            let platformHTML = '';
+            platforms.forEach(platform => {
+                platformHTML += `
+                    <div class="platform-item" data-platform="${platform.id}">
+                        <i class="${platform.icon} platform-icon" style="color: ${platform.color};"></i>
+                        <div class="platform-name">${platform.name}</div>
+                    </div>
+                `;
+            });
+            
+            // Create username input for tools that need it
+            let usernameInput = '';
+            if (toolId === 'fake_report' || toolId === 'ban_appeal') {
+                usernameInput = `
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-user"></i> Kullanıcı Adı</label>
+                        <input type="text" class="form-input" id="vipUsername" placeholder="Hedef kullanıcı adını girin" required>
+                    </div>
+                `;
+            } else if (toolId === 'copyright_removal') {
+                usernameInput = `
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-video"></i> Video URL</label>
+                        <input type="url" class="form-input" id="videoUrl" placeholder="Video linkini girin" required>
+                    </div>
+                `;
+            } else if (toolId === 'server_complaint') {
+                usernameInput = `
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-link"></i> Sunucu Linki</label>
+                        <input type="url" class="form-input" id="serverLink" placeholder="Discord sunucu linkini girin" required>
+                    </div>
+                `;
+            }
+            
+            // Add count selector for fake report and server complaint
+            let countSelector = '';
+            if (toolId === 'fake_report' || toolId === 'server_complaint') {
+                countSelector = `
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-hashtag"></i> Miktar (1-1000)</label>
+                        <div class="count-selector">
+                            <input type="number" class="count-input" id="reportCount" value="100" min="1" max="1000">
+                            <input type="range" class="range-slider" min="1" max="1000" value="100" id="reportRange">
+                        </div>
+                    </div>
+                `;
+            }
+            
+            queryForm.innerHTML = `
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label"><i class="fas fa-gamepad"></i> Platform Seçin</label>
+                    <div class="platform-selector">
+                        ${platformHTML}
+                    </div>
+                </div>
+                ${usernameInput}
+                ${countSelector}
+            `;
+            
+            queryBtn.disabled = false;
+            
+            // Add platform selection
+            setTimeout(() => {
+                document.querySelectorAll('.platform-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        document.querySelectorAll('.platform-item').forEach(el => {
+                            el.classList.remove('selected');
+                        });
+                        this.classList.add('selected');
+                    });
+                });
+                
+                // Select first platform by default
+                if (document.querySelector('.platform-item')) {
+                    document.querySelector('.platform-item').classList.add('selected');
+                }
+                
+                // Sync range slider with number input
+                const countInput = document.getElementById('reportCount');
+                const rangeSlider = document.getElementById('reportRange');
+                if (countInput && rangeSlider) {
+                    countInput.addEventListener('input', function() {
+                        rangeSlider.value = this.value;
+                    });
+                    rangeSlider.addEventListener('input', function() {
+                        countInput.value = this.value;
+                    });
+                }
+            }, 100);
         }
 
         // Show VIP Restriction
         function showVipRestriction() {
             queryForm.innerHTML = `
                 <div class="form-group" style="grid-column: 1 / -1;">
-                    <div style="background-color: #0d1117; padding: 30px; border-radius: 10px; text-align: center; border: 2px dashed var(--vip-color);">
-                        <i class="fas fa-crown" style="font-size: 60px; color: var(--vip-color); margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--vip-color); margin-bottom: 10px;">VIP ÖZELLİK</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Bu sorguyu kullanmak için VIP üye olmanız gerekmektedir.</p>
-                        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 25px;">VIP üyelik ile tüm premium sorgulara erişim sağlayın.</p>
-                        <button id="upgradeBtn" style="background: linear-gradient(90deg, var(--vip-color), #ff7b00); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 15px;">VIP'YE YÜKSELT</button>
+                    <div style="background-color: #0d1117; padding: 40px; border-radius: 12px; text-align: center; border: 3px dashed var(--vip-color);">
+                        <i class="fas fa-crown float" style="font-size: 70px; color: var(--vip-color); margin-bottom: 25px;"></i>
+                        <h3 style="color: var(--vip-color); margin-bottom: 15px; font-size: 24px;">PREMIUM ÖZELLİK</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 25px; font-size: 16px; line-height: 1.6;">Bu özelliği kullanmak için VIP üye olmanız gerekmektedir.</p>
+                        <p style="color: var(--text-primary); font-size: 15px; margin-bottom: 30px;">VIP üyelik ile tüm premium araçlara sınırsız erişim!</p>
+                        <button id="upgradeBtn" style="background: linear-gradient(90deg, var(--vip-color), #ff7b00); color: white; border: none; padding: 15px 40px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 16px; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(255, 155, 51, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <i class="fas fa-arrow-up"></i> VIP'YE YÜKSELT
+                        </button>
                     </div>
                 </div>
             `;
             queryBtn.disabled = true;
             
-            // Add upgrade button event
             setTimeout(() => {
                 const upgradeBtn = document.getElementById('upgradeBtn');
                 if (upgradeBtn) {
@@ -2021,7 +2500,10 @@
 
         // Execute Query
         function executeQuery() {
-            // Get form values
+            const queryId = state.currentQuery;
+            const template = state.queryTemplates[queryId];
+            
+            // Validate inputs
             const inputs = queryForm.querySelectorAll('.form-input');
             const values = {};
             let isValid = true;
@@ -2031,6 +2513,23 @@
                     isValid = false;
                     input.style.borderColor = 'var(--danger-color)';
                 } else {
+                    const validation = input.dataset.validation;
+                    if (validation === 'tc' && input.value.trim() !== '') {
+                        if (!/^\d{11}$/.test(input.value.trim())) {
+                            isValid = false;
+                            input.style.borderColor = 'var(--danger-color)';
+                            showNotification("Hata", "TC kimlik numarası 11 haneli olmalıdır!", "error");
+                            return;
+                        }
+                    } else if (validation === 'phone' && input.value.trim() !== '') {
+                        if (!/^05\d{9}$/.test(input.value.trim())) {
+                            isValid = false;
+                            input.style.borderColor = 'var(--danger-color)';
+                            showNotification("Hata", "Telefon numarası 05xxxxxxxxx formatında olmalıdır!", "error");
+                            return;
+                        }
+                    }
+                    
                     input.style.borderColor = '';
                     const label = input.previousElementSibling.textContent.replace(/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/g, '').trim();
                     values[label] = input.value.trim();
@@ -2038,8 +2537,19 @@
             });
             
             if (!isValid) {
-                showNotification("Form Hatası", "Lütfen tüm gerekli alanları doldurun!", "error");
+                showNotification("Form Hatası", "Lütfen tüm gerekli alanları doğru şekilde doldurun!", "error");
                 return;
+            }
+            
+            // For VIP tools, get platform
+            let selectedPlatform = null;
+            if (template && template.outputFormat === 'vip_tool') {
+                const selected = document.querySelector('.platform-item.selected');
+                if (!selected) {
+                    showNotification("Hata", "Lütfen bir platform seçin!", "error");
+                    return;
+                }
+                selectedPlatform = selected.dataset.platform;
             }
             
             // Show loading
@@ -2053,8 +2563,15 @@
                 queryBtn.disabled = false;
                 clearBtn.disabled = false;
                 
-                // Generate realistic results based on query type
-                const results = generateRealisticResults(state.currentQuery, values);
+                // Generate results based on query type
+                let results;
+                if (template && template.outputFormat === 'vip_tool') {
+                    results = executeVipTool(queryId, values, selectedPlatform);
+                } else if (template && template.outputFormat === 'discord_creator') {
+                    results = executeDiscordCreator(values);
+                } else {
+                    results = generateRealisticResults(queryId, values, template);
+                }
                 
                 // Display results
                 displayResults(results);
@@ -2073,246 +2590,488 @@
             }, 1500);
         }
 
-        // Generate Realistic Results - ANA KISIM BURASI!
-        function generateRealisticResults(queryId, values) {
+        // Generate Realistic Results - TUTARLI VERİTABANI SİSTEMİ
+        function generateRealisticResults(queryId, values, template) {
             let results = [];
+            let headers = [];
+            let rows = [];
             
             switch(queryId) {
                 case 'name_surname':
-                    // SENİN yazdığın ad ve soyad
+                    // Ad Soyad sorgusu
                     const firstName = values['Ad'] || '';
                     const lastName = values['Soyad'] || '';
                     
-                    // RASTGELE kaç veri çıkacak (1-47)
-                    const resultCount = Math.floor(Math.random() * 47) + 1;
+                    // Veritabanında ara
+                    let matchingPersons = Object.values(state.personDatabase).filter(person => 
+                        (!firstName || person.firstName.toLowerCase().includes(firstName.toLowerCase())) &&
+                        (!lastName || person.lastName.toLowerCase().includes(lastName.toLowerCase()))
+                    );
                     
-                    for (let i = 0; i < resultCount; i++) {
-                        // RASTGELE kişi oluştur
-                        const randomPerson = generateRandomPerson();
-                        
-                        // SENİN yazdığın adı kullan, yoksa RASTGELE
-                        const personFirstName = firstName || randomPerson.firstName;
-                        
-                        // SENİN yazdığın soyadı kullan, yoksa RASTGELE
-                        const personLastName = lastName || randomPerson.lastName;
-                        
-                        // Diğer HER ŞEY RASTGELE
-                        results.push([
-                            randomPerson.tc, // RASTGELE TC
-                            personFirstName, // SENİN AD veya RASTGELE
-                            personLastName,  // SENİN SOYAD veya RASTGELE
-                            randomPerson.birthDate, // RASTGELE doğum tarihi
-                            randomPerson.city,      // RASTGELE il
-                            randomPerson.district,  // RASTGELE ilçe
-                            randomPerson.motherName, // RASTGELE anne adı
-                            randomPerson.fatherName, // RASTGELE baba adı
-                            randomPerson.gender,    // RASTGELE cinsiyet
-                            'Türkiye',              // HEP TÜRKİYE
-                            randomPerson.phone,     // RASTGELE telefon
-                            randomPerson.maritalStatus, // RASTGELE medeni hal
-                            `${randomPerson.childrenCount} Çocuk` // RASTGELE çocuk sayısı
-                        ]);
+                    if (matchingPersons.length === 0) {
+                        // Eşleşme yoksa yeni kişi oluştur
+                        const newPerson = generateRandomPerson();
+                        if (firstName) newPerson.firstName = firstName;
+                        if (lastName) newPerson.lastName = lastName;
+                        state.personDatabase[newPerson.tc] = newPerson;
+                        matchingPersons = [newPerson];
+                        saveToLocalStorage();
                     }
                     
-                    return {
-                        headers: ["TC No", "Ad", "Soyad", "Doğum Tarihi", "İl", "İlçe", "Anne Adı", "Baba Adı", "Cinsiyet", "Uyruk", "Telefon", "Medeni Hal", "Çocuk"],
-                        rows: results
-                    };
+                    // İlk 50 sonucu göster
+                    matchingPersons = matchingPersons.slice(0, 50);
+                    
+                    headers = ["TC No", "Ad", "Soyad", "Doğum Tarihi", "İl", "İlçe", "Anne Adı", "Baba Adı", "Telefon", "Meslek"];
+                    
+                    matchingPersons.forEach(person => {
+                        rows.push([
+                            person.tc,
+                            person.firstName,
+                            person.lastName,
+                            person.birthDate,
+                            person.city,
+                            person.district,
+                            person.motherName,
+                            person.fatherName,
+                            person.phone,
+                            person.profession
+                        ]);
+                    });
+                    
+                    return { headers, rows };
                     
                 case 'tc':
-                    // SENİN yazdığın TC
+                    // TC sorgusu
                     const tc = values['TC Kimlik No'] || '';
                     
                     let person;
                     if (tc) {
-                        // SENİN TC'n varsa onu kullan, yoksa RASTGELE kişi oluştur
-                        if (state.personDatabase[tc]) {
-                            person = state.personDatabase[tc];
-                        } else {
+                        // Veritabanında ara
+                        person = state.personDatabase[tc];
+                        if (!person) {
+                            // Yoksa yeni kişi oluştur
                             person = generateRandomPerson();
-                            person.tc = tc; // SENİN TC'ni kullan
+                            person.tc = tc;
                             state.personDatabase[tc] = person;
                             saveToLocalStorage();
                         }
                     } else {
-                        // TC yazılmamışsa RASTGELE kişi
-                        person = generateRandomPerson();
+                        return { headers: ["Hata"], rows: [["TC numarası gereklidir"]] };
                     }
                     
-                    return {
-                        headers: ["TC No", "Ad", "Soyad", "Doğum Yeri", "Doğum Tarihi", "Nüfus İl", "Nüfus İlçe", "Anne Adı", "Baba Adı", "Cinsiyet", "Uyruk", "Kan Grubu", "Meslek"],
-                        rows: [[
-                            person.tc,              // SENİN TC veya RASTGELE
-                            person.firstName,       // RASTGELE ad
-                            person.lastName,        // RASTGELE soyad
-                            person.city,           // RASTGELE doğum yeri
-                            person.birthDate,      // RASTGELE doğum tarihi
-                            person.city,           // RASTGELE nüfus il
-                            person.district,       // RASTGELE nüfus ilçe
-                            person.motherName,     // RASTGELE anne adı
-                            person.fatherName,     // RASTGELE baba adı
-                            person.gender,         // RASTGELE cinsiyet
-                            'Türkiye',             // HEP TÜRKİYE
-                            person.bloodType,      // RASTGELE kan grubu
-                            person.profession      // RASTGELE meslek
-                        ]]
+                    headers = ["TC No", "Ad", "Soyad", "Doğum Tarihi", "Cinsiyet", "Uyruk", "Anne Adı", "Baba Adı", "Telefon", "Adres", "Kan Grubu", "Meslek"];
+                    
+                    rows.push([
+                        person.tc,
+                        person.firstName,
+                        person.lastName,
+                        person.birthDate,
+                        person.gender,
+                        person.nationality,
+                        person.motherName,
+                        person.fatherName,
+                        person.phone,
+                        person.address,
+                        person.bloodType,
+                        person.profession
+                    ]);
+                    
+                    return { headers, rows };
+                    
+                case 'gsm_tc':
+                    // GSM - TC sorgusu
+                    const phone = values['Telefon Numarası'] || '';
+                    
+                    if (!phone) {
+                        return { headers: ["Hata"], rows: [["Telefon numarası gereklidir"]] };
+                    }
+                    
+                    // Veritabanında ara
+                    let phonePerson = Object.values(state.personDatabase).find(p => p.phone === phone);
+                    
+                    if (!phonePerson) {
+                        // Yoksa yeni kişi oluştur
+                        phonePerson = generateRandomPerson();
+                        phonePerson.phone = phone;
+                        state.personDatabase[phonePerson.tc] = phonePerson;
+                        saveToLocalStorage();
+                    }
+                    
+                    headers = ["Telefon", "TC No", "Ad", "Soyad", "Operator", "Kayıt Tarihi", "Fatura Borcu", "Son Konuşma"];
+                    
+                    const operators = {
+                        '3': 'Turkcell',
+                        '4': 'Vodafone',
+                        '5': 'Turk Telekom'
                     };
+                    const operator = phone.charAt(2);
                     
-                case 'family':
-                    const familyTc = values['TC Kimlik No'] || '';
-                    let mainPerson;
+                    rows.push([
+                        phonePerson.phone,
+                        phonePerson.tc,
+                        phonePerson.firstName,
+                        phonePerson.lastName,
+                        operators[operator] || 'Bilinmiyor',
+                        "15/03/2022",
+                        `${Math.floor(Math.random() * 200)} TL`,
+                        "2 saat önce"
+                    ]);
                     
-                    if (familyTc) {
-                        if (state.personDatabase[familyTc]) {
-                            mainPerson = state.personDatabase[familyTc];
-                        } else {
-                            mainPerson = generateRandomPerson();
-                            mainPerson.tc = familyTc;
-                            state.personDatabase[familyTc] = mainPerson;
+                    return { headers, rows };
+                    
+                case 'address':
+                    // Adres sorgusu
+                    const addressQuery = values['TC No veya Adres'] || '';
+                    
+                    if (!addressQuery) {
+                        return { headers: ["Hata"], rows: [["TC No veya adres gereklidir"]] };
+                    }
+                    
+                    // Veritabanında ara
+                    let addressPersons = Object.values(state.personDatabase).filter(person => 
+                        person.tc === addressQuery || 
+                        person.address.toLowerCase().includes(addressQuery.toLowerCase())
+                    );
+                    
+                    if (addressPersons.length === 0) {
+                        // TC numarasıysa yeni kişi oluştur
+                        if (/^\d{11}$/.test(addressQuery)) {
+                            const newPerson = generateRandomPerson();
+                            newPerson.tc = addressQuery;
+                            state.personDatabase[addressQuery] = newPerson;
+                            addressPersons = [newPerson];
                             saveToLocalStorage();
                         }
-                    } else {
-                        mainPerson = generateRandomPerson();
                     }
                     
-                    // Generate family members - HER ŞEY RASTGELE
-                    const familyMembers = [
-                        [mainPerson.tc, mainPerson.firstName, mainPerson.lastName, "Kendisi", mainPerson.birthDate, mainPerson.gender, generatePhone()],
-                        [generateRandomTC(), generateRandomPerson().motherName, mainPerson.lastName, "Anne", calculateBirthDate(mainPerson.birthYear - 25), "Kadın", generatePhone()],
-                        [generateRandomTC(), generateRandomPerson().fatherName, mainPerson.lastName, "Baba", calculateBirthDate(mainPerson.birthYear - 30), "Erkek", generatePhone()],
-                        [generateRandomTC(), generateRandomPerson().firstName, mainPerson.lastName, "Kız Kardeş", calculateBirthDate(mainPerson.birthYear - 5), "Kadın", generatePhone()],
-                        [generateRandomTC(), generateRandomPerson().firstName, mainPerson.lastName, "Erkek Kardeş", calculateBirthDate(mainPerson.birthYear + 2), "Erkek", generatePhone()]
-                    ];
+                    headers = ["TC No", "Ad", "Soyad", "Tam Adres", "İl", "İlçe", "Mahalle", "Sokak", "Kapı No", "Posta Kodu"];
                     
-                    return {
-                        headers: ["TC No", "Ad", "Soyad", "Akrabalık", "Doğum Tarihi", "Cinsiyet", "Telefon"],
-                        rows: familyMembers
-                    };
+                    addressPersons.forEach(person => {
+                        const addressParts = person.address.split(' ');
+                        rows.push([
+                            person.tc,
+                            person.firstName,
+                            person.lastName,
+                            person.address,
+                            person.city,
+                            person.district,
+                            addressParts[0] || '',
+                            addressParts[1] || '',
+                            addressParts[2] || '',
+                            Math.floor(Math.random() * 100000).toString().padStart(5, '0')
+                        ]);
+                    });
                     
-                case 'passport':
-                    const passportNo = values['Pasaport No'] || '';
-                    let passportPerson = generateRandomPerson();
+                    return { headers, rows };
                     
-                    return {
-                        headers: ["Pasaport No", "Ad", "Soyad", "Doğum Tarihi", "Cinsiyet", "Uyruk", "Veriliş Tarihi", "Son Geçerlilik", "Verildiği Yer"],
-                        rows: [[
-                            passportNo || `TR${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
-                            passportPerson.firstName,
-                            passportPerson.lastName,
-                            passportPerson.birthDate,
-                            passportPerson.gender,
-                            'Türkiye',
-                            "15/03/2022",
-                            "14/03/2032",
-                            passportPerson.city
-                        ]]
-                    };
+                case 'serial_no':
+                    // Seri No sorgusu
+                    const serial = values['Seri No'] || '';
                     
-                case 'foreign':
-                    const foreignPassport = values['Pasaport No'] || '';
-                    const foreignNames = ["John", "Michael", "David", "Robert", "James", "Maria", "Anna", "Sophia", "Emma", "Olivia"];
-                    const foreignLastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson"];
-                    const countries = ["Almanya", "Fransa", "İngiltere", "Amerika", "İtalya", "İspanya", "Hollanda", "Belçika", "İsviçre", "Avusturya"];
+                    if (!serial) {
+                        return { headers: ["Hata"], rows: [["Seri numarası gereklidir"]] };
+                    }
                     
-                    return {
-                        headers: ["Pasaport No", "Ad", "Soyad", "Doğum Tarihi", "Cinsiyet", "Uyruk", "Ülke Kodu", "Vize Türü", "Kalış Süresi"],
-                        rows: [[
-                            foreignPassport || `F${Math.floor(Math.random() * 10000000)}`,
-                            foreignNames[Math.floor(Math.random() * foreignNames.length)],
-                            foreignLastNames[Math.floor(Math.random() * foreignLastNames.length)],
-                            calculateBirthDate(Math.floor(Math.random() * 40) + 20),
-                            Math.random() > 0.5 ? "Erkek" : "Kadın",
-                            countries[Math.floor(Math.random() * countries.length)],
-                            "DEU",
-                            "Turist",
-                            "90 Gün"
-                        ]]
-                    };
+                    headers = ["Seri No", "Cihaz Türü", "Marka", "Model", "Üretim Tarihi", "Garanti Bitiş", "Son Kullanıcı", "Durum", "Son Konum"];
                     
-                case 'mail_bomber':
-                    const email = values['E-posta Adresi'] || '';
-                    return {
-                        headers: ["E-posta", "Gönderim Başlatıldı", "Toplam Gönderim", "Başarılı", "Başarısız", "Son Gönderim"],
-                        rows: [[
-                            email,
-                            new Date().toLocaleString('tr-TR'),
-                            Math.floor(Math.random() * 1000) + 500,
-                            Math.floor(Math.random() * 900) + 100,
-                            Math.floor(Math.random() * 50),
-                            new Date().toLocaleString('tr-TR')
-                        ]]
-                    };
+                    const deviceTypes = ['Telefon', 'Tablet', 'Bilgisayar', 'Televizyon', 'Kamera'];
+                    const brands = ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'LG'];
+                    const models = ['Pro Max', 'Galaxy S23', 'P30 Pro', 'Redmi Note 12', 'OLED TV'];
                     
-                case 'gmail_query':
-                    const gmail = values['Gmail Adresi'] || '';
-                    return {
-                        headers: ["E-posta", "Ad Soyad", "Telefon", "Son Giriş", "IP Adresi", "Cihaz", "Konum"],
-                        rows: [[
-                            gmail,
-                            `${generateRandomPerson().firstName} ${generateRandomPerson().lastName}`,
-                            generatePhone(),
-                            new Date().toLocaleString('tr-TR'),
-                            `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-                            "Android Phone",
-                            "İstanbul, Türkiye"
-                        ]]
-                    };
+                    rows.push([
+                        serial,
+                        deviceTypes[Math.floor(Math.random() * deviceTypes.length)],
+                        brands[Math.floor(Math.random() * brands.length)],
+                        models[Math.floor(Math.random() * models.length)],
+                        `01/202${Math.floor(Math.random() * 4)}`,
+                        `01/202${Math.floor(Math.random() * 4) + 4}`,
+                        `Kullanıcı_${Math.floor(Math.random() * 1000)}`,
+                        Math.random() > 0.5 ? 'Aktif' : 'Pasif',
+                        'İstanbul, Türkiye'
+                    ]);
+                    
+                    return { headers, rows };
+                    
+                case 'insurance':
+                    // Sigorta sorgusu
+                    const insuranceTC = values['TC No'] || '';
+                    
+                    if (!insuranceTC) {
+                        return { headers: ["Hata"], rows: [["TC No gereklidir"]] };
+                    }
+                    
+                    // Veritabanında ara veya oluştur
+                    let insurancePerson = state.personDatabase[insuranceTC];
+                    if (!insurancePerson) {
+                        insurancePerson = generateRandomPerson();
+                        insurancePerson.tc = insuranceTC;
+                        state.personDatabase[insuranceTC] = insurancePerson;
+                        saveToLocalStorage();
+                    }
+                    
+                    headers = ["TC No", "Ad Soyad", "Sigorta Şirketi", "Poliçe No", "Başlangıç Tarihi", "Bitiş Tarihi", "Prim Tutarı", "Son Ödeme", "Durum"];
+                    
+                    rows.push([
+                        insurancePerson.tc,
+                        `${insurancePerson.firstName} ${insurancePerson.lastName}`,
+                        insurancePerson.insurance.company,
+                        insurancePerson.insurance.policyNo,
+                        insurancePerson.insurance.startDate,
+                        insurancePerson.insurance.endDate,
+                        `${Math.floor(Math.random() * 5000) + 1000} TL`,
+                        `${Math.floor(Math.random() * 28) + 1}/12/2023`,
+                        'Aktif'
+                    ]);
+                    
+                    return { headers, rows };
                     
                 case 'esnaf':
-                    const esnafName = values['Esnaf Adı'] || '';
-                    return {
-                        headers: ["Esnaf Adı", "Vergi No", "İş Yeri", "Adres", "Telefon", "Faaliyet Alanı", "Kayıt Tarihi"],
-                        rows: [[
-                            esnafName,
-                            `${Math.floor(Math.random() * 1000000)}`,
-                            `${esnafName || "Esnaf"} Dükkanı`,
-                            "Atatürk Cad. No:123",
-                            generatePhone(),
-                            "Perakende Satış",
-                            "2022-05-15"
-                        ]]
-                    };
+                    // Esnaf sorgusu
+                    const esnafQuery = values['Esnaf Adı / Vergi No'] || '';
                     
-                default:
-                    // Generic result for other queries - HER ŞEY RASTGELE
-                    const rowCount = Math.floor(Math.random() * 10) + 3;
+                    if (!esnafQuery) {
+                        return { headers: ["Hata"], rows: [["Esnaf adı veya vergi no gereklidir"]] };
+                    }
                     
-                    for (let i = 0; i < rowCount; i++) {
-                        const randomPerson = generateRandomPerson();
-                        results.push([
-                            `K${Math.floor(Math.random() * 10000)}`,
-                            randomPerson.firstName,
-                            randomPerson.lastName,
-                            randomPerson.tc,
-                            randomPerson.birthDate,
-                            randomPerson.city,
-                            "Aktif"
+                    headers = ["Vergi No", "Esnaf Adı", "İş Yeri Adı", "Adres", "Telefon", "Faaliyet Alanı", "Kayıt Tarihi", "Son Fatura", "Borc"];
+                    
+                    const esnafTypes = ['Bakkal', 'Kasap', 'Manav', 'Fırın', 'Kafe', 'Restoran', 'Berber', 'Kuyumcu'];
+                    
+                    rows.push([
+                        `V${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
+                        esnafQuery,
+                        `${esnafQuery} ${esnafTypes[Math.floor(Math.random() * esnafTypes.length)]}`,
+                        'Atatürk Cad. No:123',
+                        generateUniquePhone(),
+                        esnafTypes[Math.floor(Math.random() * esnafTypes.length)],
+                        "15/05/2020",
+                        `${Math.floor(Math.random() * 5000) + 1000} TL`,
+                        `${Math.floor(Math.random() * 10000)} TL`
+                    ]);
+                    
+                    return { headers, rows };
+                    
+                case 'criminal_record':
+                    // Sabıka sorgusu
+                    const criminalTC = values['TC No'] || '';
+                    
+                    if (!criminalTC) {
+                        return { headers: ["Hata"], rows: [["TC No gereklidir"]] };
+                    }
+                    
+                    // Veritabanında ara veya oluştur
+                    let criminalPerson = state.personDatabase[criminalTC];
+                    if (!criminalPerson) {
+                        criminalPerson = generateRandomPerson();
+                        criminalPerson.tc = criminalTC;
+                        state.personDatabase[criminalTC] = criminalPerson;
+                        saveToLocalStorage();
+                    }
+                    
+                    headers = ["TC No", "Ad Soyad", "Sabıka Kaydı", "Suç Türü", "Mahkeme Kararı", "Ceza Süresi", "Bitiş Tarihi", "Durum"];
+                    
+                    const crimes = ['Hırsızlık', 'Dolandırıcılık', 'Yaralama', 'Uyuşturucu', 'Hakaret', 'Tehdit'];
+                    
+                    rows.push([
+                        criminalPerson.tc,
+                        `${criminalPerson.firstName} ${criminalPerson.lastName}`,
+                        criminalPerson.criminalRecord.hasRecord ? 'Var' : 'Yok',
+                        criminalPerson.criminalRecord.hasRecord ? crimes[Math.floor(Math.random() * crimes.length)] : 'Temiz',
+                        criminalPerson.criminalRecord.hasRecord ? 'Mahkumiyet' : 'Beraat',
+                        criminalPerson.criminalRecord.hasRecord ? `${Math.floor(Math.random() * 60) + 12} ay` : '0',
+                        criminalPerson.criminalRecord.lastRecord || '-',
+                        criminalPerson.criminalRecord.hasRecord ? 'Aktif Kayıt' : 'Temiz'
+                    ]);
+                    
+                    return { headers, rows };
+                    
+                case 'record_query':
+                    // Sicil sorgusu
+                    const recordTC = values['TC No'] || '';
+                    
+                    if (!recordTC) {
+                        return { headers: ["Hata"], rows: [["TC No gereklidir"]] };
+                    }
+                    
+                    headers = ["TC No", "Ad Soyad", "Sicil No", "Kayıt Türü", "İş Yeri", "Pozisyon", "Başlangıç Tarihi", "Bitiş Tarihi", "Not"];
+                    
+                    const companies = ['X Şirketi', 'Y Holding', 'Z A.Ş.', 'ABC Ltd.', '123 İnşaat'];
+                    const positions = ['Müdür', 'Şef', 'Uzman', 'Teknisyen', 'Memur', 'İşçi'];
+                    
+                    // Veritabanında ara veya oluştur
+                    let recordPerson = state.personDatabase[recordTC];
+                    if (!recordPerson) {
+                        recordPerson = generateRandomPerson();
+                        recordPerson.tc = recordTC;
+                        state.personDatabase[recordTC] = recordPerson;
+                        saveToLocalStorage();
+                    }
+                    
+                    for (let i = 0; i < 3; i++) {
+                        rows.push([
+                            recordPerson.tc,
+                            `${recordPerson.firstName} ${recordPerson.lastName}`,
+                            `SICIL${Math.floor(Math.random() * 10000)}`,
+                            'İş Kaydı',
+                            companies[Math.floor(Math.random() * companies.length)],
+                            positions[Math.floor(Math.random() * positions.length)],
+                            `01/202${Math.floor(Math.random() * 3)}`,
+                            `12/202${Math.floor(Math.random() * 3) + 3}`,
+                            'Normal çıkış'
                         ]);
                     }
                     
-                    return {
-                        headers: ["ID", "Ad", "Soyad", "TC No", "Doğum Tarihi", "Şehir", "Durum"],
-                        rows: results
-                    };
+                    return { headers, rows };
+                    
+                case 'family':
+                    // Aile sorgusu
+                    const familyTC = values['TC Kimlik No'] || '';
+                    
+                    if (!familyTC) {
+                        return { headers: ["Hata"], rows: [["TC No gereklidir"]] };
+                    }
+                    
+                    // Veritabanında ara veya oluştur
+                    let mainPerson = state.personDatabase[familyTC];
+                    if (!mainPerson) {
+                        mainPerson = generateRandomPerson();
+                        mainPerson.tc = familyTC;
+                        state.personDatabase[familyTC] = mainPerson;
+                        saveToLocalStorage();
+                    }
+                    
+                    // Aile üyelerini oluştur
+                    headers = ["TC No", "Ad", "Soyad", "Akrabalık", "Doğum Tarihi", "Cinsiyet", "Telefon", "İkamet"];
+                    
+                    const familyMembers = [
+                        [mainPerson.tc, mainPerson.firstName, mainPerson.lastName, "Kendisi", mainPerson.birthDate, mainPerson.gender, mainPerson.phone, mainPerson.city],
+                        [generateUniqueTC(), mainPerson.motherName, mainPerson.lastName, "Anne", calculateBirthDate(mainPerson.birthYear - 25), "Kadın", generateUniquePhone(), mainPerson.city],
+                        [generateUniqueTC(), mainPerson.fatherName, mainPerson.lastName, "Baba", calculateBirthDate(mainPerson.birthYear - 30), "Erkek", generateUniquePhone(), mainPerson.city],
+                        [generateUniqueTC(), generateRandomPerson().firstName, mainPerson.lastName, "Kardeş", calculateBirthDate(mainPerson.birthYear - 3), Math.random() > 0.5 ? "Erkek" : "Kadın", generateUniquePhone(), mainPerson.city]
+                    ];
+                    
+                    return { headers, rows: familyMembers };
+                    
+                default:
+                    // Diğer sorgular için genel format
+                    const queryValue = Object.values(values)[0] || '';
+                    
+                    headers = ["ID", "Değer", "Sonuç 1", "Sonuç 2", "Sonuç 3", "Durum", "Tarih"];
+                    
+                    for (let i = 0; i < 5; i++) {
+                        rows.push([
+                            `QRY${Math.floor(Math.random() * 10000)}`,
+                            queryValue || 'Genel Sorgu',
+                            `Sonuç ${i + 1}-A`,
+                            `Sonuç ${i + 1}-B`,
+                            `Sonuç ${i + 1}-C`,
+                            Math.random() > 0.5 ? 'Başarılı' : 'Bilinmiyor',
+                            new Date().toLocaleDateString('tr-TR')
+                        ]);
+                    }
+                    
+                    return { headers, rows };
             }
+        }
+
+        // Execute VIP Tool
+        function executeVipTool(toolId, values, platform) {
+            let headers = [];
+            let rows = [];
+            
+            switch(toolId) {
+                case 'fake_report':
+                    const username = values['Kullanıcı Adı'] || 'Bilinmiyor';
+                    const reportCount = parseInt(values['Miktar (1-1000)']) || 100;
+                    
+                    headers = ["Platform", "Kullanıcı Adı", "Gönderilen Report", "Başarılı", "Başarısız", "Süre", "İşlem ID"];
+                    
+                    rows.push([
+                        platform.toUpperCase(),
+                        username,
+                        reportCount,
+                        Math.floor(reportCount * 0.8),
+                        Math.floor(reportCount * 0.2),
+                        `${Math.floor(reportCount / 10)} dakika`,
+                        `REP${Date.now()}`
+                    ]);
+                    break;
+                    
+                case 'copyright_removal':
+                    const videoUrl = values['Video URL'] || 'Bilinmiyor';
+                    
+                    headers = ["Platform", "Video URL", "İşlem Durumu", "Tahmini Süre", "İşlem ID", "Not"];
+                    
+                    rows.push([
+                        platform.toUpperCase(),
+                        videoUrl.substring(0, 30) + '...',
+                        'İşleme Alındı',
+                        '24-48 saat',
+                        `COPY${Date.now()}`,
+                        'Telif kaldırma işlemi başlatıldı'
+                    ]);
+                    break;
+                    
+                case 'ban_appeal':
+                    const banUsername = values['Kullanıcı Adı'] || 'Bilinmiyor';
+                    
+                    headers = ["Platform", "Kullanıcı Adı", "Ban Türü", "İtiraz Durumu", "Tahmini Yanıt", "İşlem ID"];
+                    
+                    rows.push([
+                        platform.toUpperCase(),
+                        banUsername,
+                        'Permanent Ban',
+                        'İtiraz Gönderildi',
+                        '3-7 iş günü',
+                        `BAN${Date.now()}`
+                    ]);
+                    break;
+                    
+                case 'server_complaint':
+                    const serverLink = values['Sunucu Linki'] || 'Bilinmiyor';
+                    const complaintCount = parseInt(values['Miktar (1-1000)']) || 100;
+                    
+                    headers = ["Platform", "Sunucu Linki", "Gönderilen Şikayet", "Başarılı", "İşlem ID", "Durum"];
+                    
+                    rows.push([
+                        platform.toUpperCase(),
+                        serverLink.substring(0, 30) + '...',
+                        complaintCount,
+                        Math.floor(complaintCount * 0.9),
+                        `COMP${Date.now()}`,
+                        'Şikayetler gönderiliyor...'
+                    ]);
+                    break;
+            }
+            
+            return { headers, rows };
+        }
+
+        // Execute Discord Creator
+        function executeDiscordCreator(values) {
+            const username = values['Kullanıcı Adı'] || 'Bilinmiyor';
+            const password = values['Şifre'] || 'Bilinmiyor';
+            
+            // Generate random email and phone
+            const email = `${username.toLowerCase().replace(/[^a-z0-9]/g, '')}${Math.floor(Math.random() * 1000)}@gmail.com`;
+            const phone = generateUniquePhone();
+            
+            const headers = ["Kullanıcı Adı", "Şifre", "Oluşturulan Email", "Telefon No", "Doğrulama Kodu", "Token", "Durum"];
+            
+            const rows = [[
+                username,
+                password,
+                email,
+                phone,
+                Math.random().toString(36).substr(2, 8).toUpperCase(),
+                `N${Math.random().toString(36).substr(2, 30)}`,
+                'Hesap oluşturuldu ve doğrulandı ✓'
+            ]];
+            
+            return { headers, rows };
         }
 
         // Helper functions
-        function generateRandomTC() {
-            let tc = '';
-            tc += Math.floor(Math.random() * 9) + 1;
-            for (let i = 0; i < 10; i++) {
-                tc += Math.floor(Math.random() * 10);
-            }
-            return tc;
-        }
-
-        function generatePhone() {
-            const operators = ['3', '4', '5'];
-            const operator = operators[Math.floor(Math.random() * operators.length)];
-            return `05${operator}${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`;
-        }
-
         function calculateBirthDate(birthYear) {
             const birthMonth = Math.floor(Math.random() * 12) + 1;
             const birthDay = Math.floor(Math.random() * 28) + 1;
@@ -2353,6 +3112,17 @@
                 input.style.borderColor = '';
             });
             
+            // Clear platform selection
+            document.querySelectorAll('.platform-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Select first platform if exists
+            const firstPlatform = document.querySelector('.platform-item');
+            if (firstPlatform) {
+                firstPlatform.classList.add('selected');
+            }
+            
             resultsContainer.style.display = 'none';
             showNotification("Form Temizlendi", "Tüm alanlar başarıyla temizlendi.", "success");
         }
@@ -2388,7 +3158,8 @@
                     expires: keyDays === 9999 ? null : expiryDate.toISOString(),
                     days: keyDays,
                     used: false,
-                    owner: `User_${Math.floor(Math.random() * 10000)}`
+                    owner: `User_${Math.floor(Math.random() * 10000)}`,
+                    createdBy: state.currentUser
                 };
                 
                 state.generatedKeys.push(keyData);
@@ -2398,7 +3169,8 @@
                     expires: keyDays === 9999 ? null : expiryDate.toISOString(),
                     owner: keyData.owner,
                     created: new Date().toLocaleDateString('tr-TR'),
-                    days: keyDays
+                    days: keyDays,
+                    createdBy: state.currentUser
                 });
                 
                 newKeys.push(key);
@@ -2426,6 +3198,15 @@
                 return;
             }
             
+            // Find the key
+            const keyData = state.generatedKeys.find(k => k.key === keyToDelete);
+            
+            // Check if current user is the creator or admin
+            if (keyData && keyData.createdBy !== state.currentUser && state.currentUser !== 'Owner') {
+                showNotification("Hata", "Sadece kendi oluşturduğunuz anahtarları silebilirsiniz!", "error");
+                return;
+            }
+            
             // Remove from generated keys
             state.generatedKeys = state.generatedKeys.filter(k => k.key !== keyToDelete);
             
@@ -2444,58 +3225,78 @@
 
         // Delete All Keys
         function deleteAllKeys() {
-            if (state.generatedKeys.length === 0) {
+            // Filter out keys not created by current user and keep owner key
+            const userKeys = state.generatedKeys.filter(k => k.createdBy === state.currentUser);
+            
+            if (userKeys.length === 0) {
                 showNotification("Hata", "Silinecek anahtar bulunamadı!", "error");
                 return;
             }
             
-            if (confirm("Tüm anahtarları silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")) {
-                // Keep only owner key
-                state.generatedKeys = [];
-                state.validKeys = state.validKeys.filter(k => k.key === 'saritas2013');
-                state.activeUsers = state.activeUsers.filter(u => u.key === 'saritas2013');
+            if (confirm("Kendi oluşturduğunuz tüm anahtarları silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")) {
+                // Keep only keys not created by current user and owner key
+                state.generatedKeys = state.generatedKeys.filter(k => k.createdBy !== state.currentUser);
+                state.validKeys = state.validKeys.filter(k => k.key === 'saritas2013' || k.createdBy !== state.currentUser);
+                state.activeUsers = state.activeUsers.filter(u => u.key === 'saritas2013' || !state.generatedKeys.some(k => k.key === u.key));
                 
                 updateKeyList();
                 saveToLocalStorage();
                 updateStats();
                 
-                showNotification("Tüm Anahtarlar Silindi", "Tüm anahtarlar başarıyla silindi.", "success");
+                showNotification("Anahtarlar Silindi", "Kendi anahtarlarınız başarıyla silindi.", "success");
             }
         }
 
-        // List Users
+        // List Users (Şifresiz - Sadece key bilgileri)
         function listUsers() {
-            let usersHTML = `
+            // Key listesini göster (şifreler gizli)
+            let keysHTML = `
                 <div class="results-table-container">
                     <table class="results-table">
                         <thead>
                             <tr>
-                                <th>Kullanıcı Adı</th>
-                                <th>Rol</th>
                                 <th>Anahtar</th>
-                                <th>Kayıt Tarihi</th>
-                                <th>Son Giriş</th>
-                                <th>Durum</th>
+                                <th>Oluşturan</th>
+                                <th>Rol</th>
+                                <th>Oluşturulma Tarihi</th>
+                                <th>Süre (Gün)</th>
+                                <th>Kalan Süre</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${state.activeUsers.map(user => `
-                                <tr>
-                                    <td>${user.username}</td>
-                                    <td><span class="item-badge ${user.role === 'admin' ? 'admin-badge' : user.role === 'vip' ? 'vip-badge' : ''}">${user.role === 'admin' ? 'Yönetici' : user.role === 'vip' ? 'VIP Üye' : 'Ücretsiz Üye'}</span></td>
-                                    <td><code style="font-family: 'Roboto Mono', monospace; font-size: 12px;">${user.key}</code></td>
-                                    <td>${user.joinDate}</td>
-                                    <td>${user.lastLogin}</td>
-                                    <td><span style="color: var(--success-color);">● Aktif</span></td>
-                                </tr>
-                            `).join('')}
+                            ${state.generatedKeys.map(key => {
+                                const createdDate = new Date(key.created);
+                                const expiryDate = key.expires ? new Date(key.expires) : null;
+                                const today = new Date();
+                                
+                                let remainingDays = 'Süresiz';
+                                let statusColor = 'var(--success-color)';
+                                
+                                if (expiryDate) {
+                                    const diffTime = expiryDate - today;
+                                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                    remainingDays = diffDays > 0 ? `${diffDays} Gün` : 'Süresi Doldu';
+                                    statusColor = diffDays > 0 ? 'var(--success-color)' : 'var(--danger-color)';
+                                }
+                                
+                                return `
+                                    <tr>
+                                        <td><code style="font-family: 'Roboto Mono', monospace; font-size: 12px;">${key.key}</code></td>
+                                        <td>${key.createdBy || 'Sistem'}</td>
+                                        <td><span class="item-badge ${key.type === 'admin' ? 'admin-badge' : key.type === 'vip' ? 'vip-badge' : ''}" style="font-size: 11px;">${key.type.toUpperCase()}</span></td>
+                                        <td>${createdDate.toLocaleDateString('tr-TR')}</td>
+                                        <td>${key.days === 9999 ? 'Süresiz' : key.days + ' Gün'}</td>
+                                        <td style="color: ${statusColor}">${remainingDays}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
                         </tbody>
                     </table>
                 </div>
             `;
             
-            keyList.innerHTML = usersHTML;
-            showNotification("Kullanıcı Listesi", `${state.activeUsers.length} kullanıcı başarıyla listelendi.`, "success");
+            keyList.innerHTML = keysHTML;
+            showNotification("Anahtar Listesi", `${state.generatedKeys.length} anahtar başarıyla listelendi.`, "success");
         }
 
         // Update Key List
@@ -2505,7 +3306,7 @@
             if (state.generatedKeys.length === 0) {
                 keyList.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <i class="fas fa-key" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <i class="fas fa-key float" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
                         <p>Henüz anahtar oluşturulmadı.</p>
                     </div>
                 `;
@@ -2519,6 +3320,10 @@
                     new Date(key.expires).toLocaleDateString('tr-TR') : 
                     'Süresiz';
                 
+                // Check if current user can delete this key
+                const canDelete = state.currentUser === 'Owner' || key.createdBy === state.currentUser;
+                const isOwnerKey = key.key === 'saritas2013';
+                
                 keysHTML += `
                     <div class="key-item">
                         <div class="key-info">
@@ -2527,11 +3332,18 @@
                                 <span class="key-type ${key.type}">${key.type.toUpperCase()}</span>
                                 <span>${key.days === 9999 ? 'Süresiz' : key.days + ' Gün'}</span>
                                 <span>${expiresText}</span>
+                                <span>Oluşturan: ${key.createdBy || 'Sistem'}</span>
                             </div>
                         </div>
-                        <button class="key-delete-btn" onclick="deleteKey('${key.key}')">
-                            <i class="fas fa-trash"></i> SİL
-                        </button>
+                        ${canDelete && !isOwnerKey ? `
+                            <button class="key-delete-btn" onclick="deleteKey('${key.key}')">
+                                <i class="fas fa-trash"></i> SİL
+                            </button>
+                        ` : `
+                            <span style="color: var(--text-secondary); font-size: 12px; padding: 6px 12px;">
+                                ${isOwnerKey ? 'Owner Anahtarı' : 'Silinemez'}
+                            </span>
+                        `}
                     </div>
                 `;
             });
